@@ -76,7 +76,7 @@ def scrape_mars_facts_html():
     mars_facts_df = pd.read_html(html, attrs = {'id': 'tablepress-mars'})[0]
     mars_facts_df.columns = ['Measurement', 'Value']
     mars_facts_df['Measurement'] = [measurement[:-1] for measurement in mars_facts_df['Measurement']]
-    mars_facts_html = mars_facts_df.to_html()
+    mars_facts_html = mars_facts_df.to_html(index=False)
     return {'marsFactsHtml': mars_facts_html}
 
 
