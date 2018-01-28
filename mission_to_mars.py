@@ -9,8 +9,8 @@ This function uses Splinter chromedriver to visit webpages and return either
 the raw html or a BeautifulSoup object.
 '''
 def scrape_html_soup(seed_url, soup=True, click_css=''):
-    executable_path = {'executable_path': 'C:/Users/markg/chromedriver/bin/chromedriver'}
-    browser = Browser('chrome', **executable_path, headless=True)
+    ###executable_path = {'executable_path': 'C:/Users/markg/chromedriver/bin/chromedriver'}
+    browser = Browser('chrome', headless=True)
     # Visit the seed url
     browser.visit(seed_url)
     time.sleep(1)
