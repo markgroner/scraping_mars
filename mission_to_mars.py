@@ -76,7 +76,8 @@ def scrape_mars_facts_df():
     mars_facts_df = pd.read_html(html, attrs = {'id': 'tablepress-mars'})[0]
     mars_facts_df.columns = ['Measurement', 'Value']
     mars_facts_df['Measurement'] = [measurement[:-1] for measurement in mars_facts_df['Measurement']]
-    return {'marsFactsDf': mars_facts_df}
+    mars_facts_html = mars_facts_df.to_html()
+    return {'marsFactsHtml': mars_facts_html}
 
 '''
 This function concatenates the dictionaries from these four functions:
@@ -89,7 +90,7 @@ The return dictionary has 5 elements with the following keys:
     2. articleParagraph
     3. featuredImageUrl
     4. marsWeatherTweet
-    5. marsFactsDf
+    5. marsFactsHtml
 '''
 def scrape():
     scraped_data_dict = scrape_mars_news()
@@ -97,7 +98,7 @@ def scrape():
     scraped_data_dict.update(scrape_mars_weather_tweet())
     scraped_data_dict.update(scrape_mars_facts_df())
     return scraped_data_dict
-
+print(scrape())
 
 '''
 * `/api/v1.0/stations`
