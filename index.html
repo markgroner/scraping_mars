@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Scraping mars data sources for collated report">
+    <meta name="author" content="Mark Groner">
+
+    <title>Mars News</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="yeti.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 62px;
+        }
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href=".\index.html"> Mission to Mars </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-8 col-md-7 wrapped-box">
+          <h2> Latest Mars News </h2>
+          <h4> $articleTitle </h4>
+          <p> $articleParagraph </p>
+          <hr class="hr-data-comparison">
+          <h2> Featured Mars Image </h2>
+          <center>
+            <img class="analysis-plot" border="0" alt="max_temp" src="$featuredImageUrl" align="middle">
+          </center>
+        </div>
+        <div class="col-xs-12 col-md-1"></div>
+        <div class="row side-plots-buffer"></div>
+        <div class="col-xs-12 col-md-4 wrapped-box side-plots">
+          <div class="row">
+            <h4 class="move-header-left"> Current Weather on Mars </h4>
+              <p> $marsWeatherTweet </p>
+            <hr>
+          </div>
+          <h4 class="move-header-left"> Mars Facts </h4>
+            "$marsFactsHtml"
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+    <main>
+
+    </main>
+  </div>
+
+</body>
+
+</html>
