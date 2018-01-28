@@ -2,8 +2,7 @@ import pandas as pd
 import time
 from bs4 import BeautifulSoup
 from splinter import Browser
-executable_path = {'executable_path': 'C:/Users/markg/chromedriver/bin/chromedriver'}
-browser = Browser('chrome', **executable_path, headless=False)
+
 
 
 '''
@@ -11,6 +10,8 @@ This function uses Splinter chromedriver to visit webpages and return either
 the raw html or a BeautifulSoup object.
 '''
 def scrape_html_soup(seed_url, soup=True, click_css=''):
+    executable_path = {'executable_path': 'C:/Users/markg/chromedriver/bin/chromedriver'}
+    browser = Browser('chrome', **executable_path, headless=False)
     # Visit the seed url
     browser.visit(seed_url)
     time.sleep(1)
@@ -18,6 +19,7 @@ def scrape_html_soup(seed_url, soup=True, click_css=''):
         browser.find_by_css(click_css).first.click()
         time.sleep(1)
     html = browser.html
+    browser.quit()
     if soup: ## Scrape page into soup
         return BeautifulSoup(html, 'html.parser')
     else:
@@ -50,8 +52,7 @@ def scrape_featured_mars_image():
     featured_image_url = f'{landing_page_url}{featured_image_url}'
     featured_image_url = featured_image_url.replace('medium', 'large').replace('ip', 'hires')
     return {'featuredImageUrl': featured_image_url}
-
-
+##print(scrape_featured_mars_image())
 
 '''
 This function scrapes the most recent mars weather tweet from
@@ -68,9 +69,9 @@ def scrape_mars_weather_tweet():
 
 '''
 This function scrapes the mars facts table from 'http://space-facts.com/mars/'
-It returns the table as pandas dataframe in a python dictionary.
+It returns the table as an html string in a python dictionary.
 '''
-def scrape_mars_facts_df():
+def scrape_mars_facts_html():
     seed_url = 'http://space-facts.com/mars/'
     html = scrape_html_soup(seed_url, soup=False)
     mars_facts_df = pd.read_html(html, attrs = {'id': 'tablepress-mars'})[0]
@@ -79,12 +80,13 @@ def scrape_mars_facts_df():
     mars_facts_html = mars_facts_df.to_html()
     return {'marsFactsHtml': mars_facts_html}
 
+
 '''
 This function concatenates the dictionaries from these four functions:
     1. scrape_mars_news
     2. scrape_featured_mars_image
     3. scrape_mars_weather_tweet
-    4. scrape_mars_facts_df
+    4. scrape_mars_facts_html
 The return dictionary has 5 elements with the following keys:
     1. articleTitle
     2. articleParagraph
@@ -94,11 +96,12 @@ The return dictionary has 5 elements with the following keys:
 '''
 def scrape():
     scraped_data_dict = scrape_mars_news()
-    ##scraped_data_dict.update(scrape_featured_mars_image())
+    scraped_data_dict.update(scrape_featured_mars_image())
     scraped_data_dict.update(scrape_mars_weather_tweet())
-    scraped_data_dict.update(scrape_mars_facts_df())
+    scraped_data_dict.update(scrape_mars_facts_html())
     return scraped_data_dict
 print(scrape())
+
 
 '''
 * `/api/v1.0/stations`
