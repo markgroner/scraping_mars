@@ -4,14 +4,13 @@ from bs4 import BeautifulSoup
 from splinter import Browser
 
 
-
 '''
 This function uses Splinter chromedriver to visit webpages and return either
 the raw html or a BeautifulSoup object.
 '''
 def scrape_html_soup(seed_url, soup=True, click_css=''):
     executable_path = {'executable_path': 'C:/Users/markg/chromedriver/bin/chromedriver'}
-    browser = Browser('chrome', **executable_path, headless=False)
+    browser = Browser('chrome', **executable_path, headless=True)
     # Visit the seed url
     browser.visit(seed_url)
     time.sleep(1)
@@ -52,7 +51,7 @@ def scrape_featured_mars_image():
     featured_image_url = f'{landing_page_url}{featured_image_url}'
     featured_image_url = featured_image_url.replace('medium', 'large').replace('ip', 'hires')
     return {'featuredImageUrl': featured_image_url}
-##print(scrape_featured_mars_image())
+
 
 '''
 This function scrapes the most recent mars weather tweet from
@@ -100,19 +99,3 @@ def scrape():
     scraped_data_dict.update(scrape_mars_weather_tweet())
     scraped_data_dict.update(scrape_mars_facts_html())
     return scraped_data_dict
-print(scrape())
-
-
-'''
-* `/api/v1.0/stations`
-
-  * Return a json list of stations from the dataset.
-'''
-'''
-@app.route("/api/v1.0/stations")
-def stations():
-    all_stations = session.query(Station.name).all()
-    stations_list = [station[0] for station in all_stations]
-    stations_dict = {'stations': stations_list}
-    return jsonify(stations_dict)
-'''
