@@ -36,16 +36,18 @@ def mars_html():
         mars_scrape()
         mars_data_from_mongo = list(db.scrapedData.find({}))
     mars_dict = mars_data_from_mongo[-1:][0]
-    article_title  = mars_dict['articleTitle']
-    article_paragraph  = mars_dict['articleParagraph']
-    featured_image_url  = mars_dict['featuredImageUrl']
-    mars_weather_tweet  = mars_dict['marsWeatherTweet']
-    mars_facts_html  = mars_dict['marsFactsHtml']
+    article_title = mars_dict['articleTitle']
+    article_paragraph = mars_dict['articleParagraph']
+    featured_image_url = mars_dict['featuredImageUrl']
+    mars_weather_tweet = mars_dict['marsWeatherTweet']
+    mars_facts_html = mars_dict['marsFactsHtml']
+    date_time_string = mars_dict['dateTimeString']
     html = Template(html_template).safe_substitute(articleTitle=article_title)
     html = Template(html).safe_substitute(articleParagraph=article_paragraph)
     html = Template(html).safe_substitute(featuredImageUrl=featured_image_url)
     html = Template(html).safe_substitute(marsWeatherTweet=mars_weather_tweet)
     html = Template(html).safe_substitute(marsFactsHtml=mars_facts_html)
+    html = Template(html).safe_substitute(dateTimeString=date_time_string)
     return html
 
 
