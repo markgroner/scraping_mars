@@ -7,16 +7,6 @@ import os
 
 
 '''
-Initiates chrome browser used to scrape pages.
-'''
-def init_browser():
-    ##chrome_path = os.path.join(os.getcwd(), 'chromedriver.exe')
-    ##executable_path = {'executable_path': chrome_path}
-    ##browser = Browser('chrome', **executable_path, headless=True)
-    browser = Browser('chrome', headless=True)
-    return browser
-
-'''
 This function uses Splinter chromedriver to visit webpages and return either
 the raw html as a string or a BeautifulSoup object.
 '''
@@ -116,7 +106,7 @@ The return dictionary has 5 elements with the following keys:
     6. dateTimeString
 '''
 def scrape():
-    browser = init_browser()
+    browser = Browser('chrome', headless=True)
     scraped_data_dict = scrape_mars_news(browser)
     scraped_data_dict.update(scrape_featured_mars_image(browser))
     scraped_data_dict.update(scrape_mars_weather_tweet(browser))
