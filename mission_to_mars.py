@@ -70,7 +70,8 @@ It returns the text of the tweet as a string in a python dictionary.
 def scrape_mars_weather_tweet(browser):
     seed_url = 'https://twitter.com/marswxreport?lang=en'
     soup = scrape_html_soup(browser, seed_url)
-    mars_weather_tweet = soup.find('div', attrs={'class': 'tweet', 'data-name': 'Mars Weather'})\
+    mars_weather_tweet = soup\
+        .find('div', attrs={'class': 'tweet', 'data-name': 'Mars Weather'})\
         .find('p', attrs={'class': 'tweet-text'}).text
     return {'marsWeatherTweet': mars_weather_tweet}
 
