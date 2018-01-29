@@ -1,6 +1,6 @@
 from mission_to_mars import scrape
 import pymongo
-from flask import Flask, jsonify
+from flask import Flask, redirect, url_for
 from string import Template
 import codecs
 
@@ -18,9 +18,8 @@ db = client.mars_db
 @app.route('/scrape')
 def mars_scrape():
     mars_dict = scrape()
-    ##db.scrapedData.delete_many({})
     db.scrapedData.insert_one(mars_dict)
-    return mars_html()
+    return redirect(url_for('mars_html'))
 
 
 '''
@@ -32,7 +31,11 @@ def mars_scrape():
 @app.route('/')
 def mars_html():
     html_template = codecs.open('index.html', 'r').read()
-    mars_dict = list(db.scrapedData.find({}))[-1:][0]
+    mars_data_from_mongo = list(db.scrapedData.find({}))
+    if len(mars_data_from_mongo) == 0:
+        mars_scrape()
+        mars_data_from_mongo = list(db.scrapedData.find({}))
+    mars_dict = mars_data_from_mongo[-1:][0]
     article_title  = mars_dict['articleTitle']
     article_paragraph  = mars_dict['articleParagraph']
     featured_image_url  = mars_dict['featuredImageUrl']
