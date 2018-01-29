@@ -10,9 +10,10 @@ import os
 Initiates chrome browser used to scrape pages.
 '''
 def init_browser():
-    chrome_path = os.path.join(os.getcwd(), 'chromedriver.exe')
-    executable_path = {'executable_path': chrome_path}
-    browser = Browser('chrome', **executable_path, headless=True)
+    ##chrome_path = os.path.join(os.getcwd(), 'chromedriver.exe')
+    ##executable_path = {'executable_path': chrome_path}
+    ##browser = Browser('chrome', **executable_path, headless=True)
+    browser = Browser('chrome', headless=True)
     return browser
 
 '''
