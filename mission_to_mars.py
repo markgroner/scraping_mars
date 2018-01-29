@@ -112,5 +112,3 @@ def scrape():
     scraped_data_dict.update(scrape_mars_facts_html())
     scraped_data_dict.update(get_time())
     return scraped_data_dict
-
-print(scrape()['dateTimeString'])
