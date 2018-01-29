@@ -19,7 +19,7 @@ db = client.mars_db
 def mars_scrape():
     mars_dict = scrape()
     db.scrapedData.insert_one(mars_dict)
-    return redirect(url_for('mars_html'))
+    return redirect(url_for('mars_html'), 302)
 
 
 '''
