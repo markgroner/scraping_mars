@@ -3,6 +3,7 @@ import time
 from bs4 import BeautifulSoup
 from splinter import Browser
 from datetime import datetime
+import os
 
 
 '''
@@ -10,7 +11,8 @@ This function uses Splinter chromedriver to visit webpages and return either
 the raw html as a string or a BeautifulSoup object.
 '''
 def scrape_html_soup(seed_url, soup=True, click_css=''):
-    executable_path = {'executable_path': '.\chromedriver'}
+    chrome_path = os.path.join(os.getcwd(), 'chromedriver.exe')
+    executable_path = {'executable_path': chrome_path}
     browser = Browser('chrome', **executable_path, headless=True)
     # Visit the seed url
     browser.visit(seed_url)
