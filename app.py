@@ -30,7 +30,6 @@ def mars_scrape():
 '''
 @app.route('/')
 def mars_html():
-    html_template = codecs.open('index.html', 'r').read()
     mars_data_from_mongo = list(db.scrapedData.find({}))
     if len(mars_data_from_mongo) == 0:
         mars_scrape()
