@@ -2,6 +2,7 @@ import pandas as pd
 import time
 from bs4 import BeautifulSoup
 from splinter import Browser
+from datetime import datetime
 
 
 '''
@@ -82,21 +83,34 @@ def scrape_mars_facts_html():
 
 
 '''
+Gets time of last scrape and put it in a dictionary
+'''
+def get_time():
+    date_time_string = datetime.now().strftime('%Y-%m-%d %I:%M %p')
+    return {'dateTimeString': date_time_string}
+
+
+'''
 This function concatenates the dictionaries from these four functions:
     1. scrape_mars_news
     2. scrape_featured_mars_image
     3. scrape_mars_weather_tweet
     4. scrape_mars_facts_html
+    5. get_time
 The return dictionary has 5 elements with the following keys:
     1. articleTitle
     2. articleParagraph
     3. featuredImageUrl
     4. marsWeatherTweet
     5. marsFactsHtml
+    6. dateTimeString
 '''
 def scrape():
     scraped_data_dict = scrape_mars_news()
     scraped_data_dict.update(scrape_featured_mars_image())
     scraped_data_dict.update(scrape_mars_weather_tweet())
     scraped_data_dict.update(scrape_mars_facts_html())
+    scraped_data_dict.update(get_time())
     return scraped_data_dict
+
+print(scrape()['dateTimeString'])
